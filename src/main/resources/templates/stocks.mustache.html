@@ -43,33 +43,35 @@
 
 	<table>
 		<thead>
-    		<tr>
-     			<th>#</th>
-     			<th>symbol</th>
-     			<th>name</th>
-     			<th>price</th>
-     			<th>change</th>
-     			<th>ratio</th>
-    		</tr>
-   		</thead>
-   		<tbody>
+			<tr>
+				<th>#</th>
+				<th>symbol</th>
+				<th>name</th>
+				<th>price</th>
+				<th>change</th>
+				<th>ratio</th>
+			</tr>
+		</thead>
+		<tbody>
 			{{#items}}
-    		<tr class="{{rowClass}}">
-     			<td>{{index}}</td>
-    			<td>
-      				<a href="/stocks/{{value.symbol}}">{{value.symbol}}</a>
-     			</td>
-     			<td>
-      				<a href="{{value.url}}">{{value.name}}</a>
-     			</td>
-     			<td>
-      				<strong>{{value.price}}</strong>
-     			</td>
-			     <td{{negativeClass}}>{{value.change}}</td>
-			     <td{{negativeClass}}>{{value.ratio}}</td>
-    		</tr>
+			<tr class="{{rowClass}}">
+				<td>{{index}}</td>
+				{{#value}}
+				<td>
+					<a href="/stocks/{{symbol}}">{{symbol}}</a>
+				</td>
+				<td>
+					<a href="{{url}}">{{name}}</a>
+				</td>
+				<td>
+					<strong>{{price}}</strong>
+				</td>
+				 <td{{negativeClass}}>{{change}}</td>
+				 <td{{negativeClass}}>{{ratio}}</td>
+				 {{/value}}
+			</tr>
 			{{/items}}
-   		</tbody>
+		</tbody>
 	</table>
 
 </body>
