@@ -22,8 +22,8 @@ public class JStachio extends BaseBenchmark {
     private List<Stock> items;
     private StocksModel model;
     
-    Appender appender;
-    Appender escaper;
+    Appender<StringBuilder> appender;
+    Appender<Appendable> escaper;
     Formatter formatter;
     
     @Setup
@@ -36,8 +36,8 @@ public class JStachio extends BaseBenchmark {
             vs.add(v);
         }
         
-        appender = Appender.DefaultAppender.INSTANCE;
-        escaper = Appender.DefaultAppender.INSTANCE;
+        appender = Appender.StringAppender.INSTANCE;
+        escaper = PlainText.provides();
         formatter = Formatter.DefaultFormatter.INSTANCE;
         
         model = new StocksModel(vs);

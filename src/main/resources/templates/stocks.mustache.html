@@ -54,7 +54,7 @@
 		</thead>
 		<tbody>
 			{{#items}}
-			<tr class="{{rowClass}}">
+			<tr class="{{{rowClass}}}">
 				<td>{{index}}</td>
 				{{#value}}
 				<td>
@@ -66,8 +66,8 @@
 				<td>
 					<strong>{{price}}</strong>
 				</td>
-				 <td{{negativeClass}}>{{change}}</td>
-				 <td{{negativeClass}}>{{ratio}}</td>
+				 <td{{{negativeClass}}}>{{change}}</td>
+				 <td{{{negativeClass}}}>{{ratio}}</td>
 				 {{/value}}
 			</tr>
 			{{/items}}
