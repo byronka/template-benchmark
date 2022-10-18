@@ -4,6 +4,7 @@ template-benchmark
 JMH benchmark for popular Java template engines:
 
 * [Freemarker](http://freemarker.org/)
+* [JStachio](https://github.com/jstachio/jstachio)
 * [jte](https://github.com/casid/jte)
 * [Mustache](https://github.com/spullara/mustache.java)
 * [Pebble](http://www.mitchellbosecke.com/pebble)
