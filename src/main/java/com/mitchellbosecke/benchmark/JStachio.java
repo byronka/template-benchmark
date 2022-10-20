@@ -9,14 +9,13 @@ import org.openjdk.jmh.annotations.Setup;
 import com.mitchellbosecke.benchmark.model.Stock;
 
 import io.jstach.Appender;
-import io.jstach.annotation.GenerateRenderer;
-import io.jstach.spi.Formatter;
-import io.jstach.text.formats.PlainText;
+import io.jstach.Formatter;
+import io.jstach.annotation.JStache;
+import io.jstach.escapers.PlainText;
 
 public class JStachio extends BaseBenchmark {
 
     // Let us cheat like rocker and jte
-
     private static final ThreadLocal<StringBuilder> buffer = ThreadLocal.withInitial(() -> new StringBuilder(1024 * 8));
     
     private List<Stock> items;
@@ -57,7 +56,7 @@ public class JStachio extends BaseBenchmark {
 
     }
     
-    @GenerateRenderer(template = "templates/stocks.mustache.html", templateFormat = PlainText.class)
+    @JStache(path = "templates/stocks.mustache.html", templateFormat = PlainText.class)
     public static class StocksModel {
 
         public final List<StockView> items;

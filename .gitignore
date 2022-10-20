@@ -9,3 +9,5 @@ target/
 .idea
 jte-classes/
 .factorypath
+# I am not sure why this build is pumping the service file out in the main directory
+io.jstach.Renderer
