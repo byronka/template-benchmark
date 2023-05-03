@@ -3,15 +3,17 @@ package com.mitchellbosecke.benchmark;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
 
 import com.mitchellbosecke.benchmark.model.Stock;
 
-import io.jstach.Appender;
-import io.jstach.Formatter;
-import io.jstach.annotation.JStache;
-import io.jstach.escapers.PlainText;
+import io.jstach.jstache.JStache;
+import io.jstach.jstachio.Appender;
+import io.jstach.jstachio.Formatter;
+import io.jstach.jstachio.escapers.PlainText;
+import io.jstach.jstachio.formatters.DefaultFormatter;
 
 public class JStachio extends BaseBenchmark {
 
@@ -35,9 +37,9 @@ public class JStachio extends BaseBenchmark {
             vs.add(v);
         }
         
-        appender = Appender.StringAppender.INSTANCE;
-        escaper = PlainText.provides();
-        formatter = Formatter.DefaultFormatter.INSTANCE;
+        appender = Appender.stringAppender();
+        escaper = PlainText.provider();
+        formatter = DefaultFormatter.provider();
         
         model = new StocksModel(vs);
     }
@@ -48,7 +50,7 @@ public class JStachio extends BaseBenchmark {
         sb.setLength(0);
 
         try {
-            StocksModelRendererDefinition.render(model, sb, appender, escaper, formatter);
+           StocksModelRenderer.render(model, sb, formatter, escaper, appender);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,7 +58,7 @@ public class JStachio extends BaseBenchmark {
 
     }
     
-    @JStache(path = "templates/stocks.mustache.html", templateFormat = PlainText.class)
+    @JStache(path = "templates/stocks.mustache.html")
     public static class StocksModel {
 
         public final List<StockView> items;
