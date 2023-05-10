@@ -6,8 +6,8 @@ import java.util.List;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
 
-import com.mitchellbosecke.benchmark.JStachio.StockView;
-import com.mitchellbosecke.benchmark.JStachio.StocksModel;
+import com.mitchellbosecke.benchmark.JStachioNoLambda.StockView;
+import com.mitchellbosecke.benchmark.JStachioNoLambda.StocksModel;
 import com.mitchellbosecke.benchmark.model.Stock;
 
 public class Manual extends BaseBenchmark {

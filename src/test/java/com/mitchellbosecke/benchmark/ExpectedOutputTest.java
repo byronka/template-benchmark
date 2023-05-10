@@ -61,7 +61,14 @@ public class ExpectedOutputTest {
     }
     
     @Test
-    public void testJstachioOutput() throws IOException {
+    public void testJstachioMustacheOutput() throws IOException {
+        JStachioNoLambda jstachio = new JStachioNoLambda();
+        jstachio.setup();
+        assertOutput(jstachio.benchmark());
+    }
+    
+    @Test
+    public void testJstachio() throws IOException {
         JStachio jstachio = new JStachio();
         jstachio.setup();
         assertOutput(jstachio.benchmark());

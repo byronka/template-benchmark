@@ -1,8 +1,6 @@
 package com.mitchellbosecke.benchmark;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
@@ -10,10 +8,9 @@ import org.openjdk.jmh.annotations.Setup;
 import com.mitchellbosecke.benchmark.model.Stock;
 
 import io.jstach.jstache.JStache;
-import io.jstach.jstachio.Appender;
-import io.jstach.jstachio.Formatter;
+import io.jstach.jstache.JStacheConfig;
+import io.jstach.jstache.JStacheLambda;
 import io.jstach.jstachio.escapers.PlainText;
-import io.jstach.jstachio.formatters.DefaultFormatter;
 
 public class JStachio extends BaseBenchmark {
 
@@ -22,76 +19,43 @@ public class JStachio extends BaseBenchmark {
     
     private List<Stock> items;
     private StocksModel model;
-    
-    Appender<StringBuilder> appender;
-    Appender<Appendable> escaper;
-    Formatter formatter;
+    private JStachioStocksTemplate template;
     
     @Setup
     public void setup() {
         items = Stock.dummyItems();
-        List<StockView> vs = new ArrayList<>();
-        for (int i = 0; i < items.size(); i++) {
-            int j = i + 1;
-            StockView v = new StockView(j, j == 1, j == items.size(), items.get(i));
-            vs.add(v);
-        }
-        
-        appender = Appender.stringAppender();
-        escaper = PlainText.provider();
-        formatter = DefaultFormatter.provider();
-        
-        model = new StocksModel(vs);
+        model = new StocksModel(items);
+        template = JStachioStocksTemplate.of();
     }
 
     @Benchmark
     public String benchmark() {
         StringBuilder sb = buffer.get();
         sb.setLength(0);
-
-        try {
-           StocksModelRenderer.render(model, sb, formatter, escaper, appender);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return sb.toString();
-
+        return template.execute(model, sb).toString();
     }
     
-    @JStache(path = "templates/stocks.mustache.html")
+    @JStache(path = "templates/stocks.jstachio.html", 
+            name="JStachioStocksTemplate")
+    @JStacheConfig(contentType=PlainText.class)
     public static class StocksModel {
 
-        public final List<StockView> items;
+        public final List<Stock> items;
 
-        public StocksModel(List<StockView> items) {
-            super();
+        public StocksModel(List<Stock> items) {
             this.items = items;
         }
-
-    }
-
-    static class StockView {
-
-        public final int index;
-
-        public final boolean first;
-
-        public final boolean last;
-
-        public final Stock value;
-
-        public final String negativeClass;
-
-        public final String rowClass;
-
-        public StockView(int index, boolean first, boolean last, Stock value) {
-            this.index = index;
-            this.first = first;
-            this.last = last;
-            this.value = value;
-            this.negativeClass = value.getChange() > 0 ? "" : "class=\"minus\"";
-            this.rowClass = index % 2 == 0 ? "even" : "odd";
+        
+        @JStacheLambda
+        public boolean isPositive(Stock stock) {
+            return stock.getChange() > 0;
         }
+        
+        @JStacheLambda
+        public boolean isEven(int index) {
+            return index % 2 == 0;
+        }
+
     }
 
 }

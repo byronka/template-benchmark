@@ -4,7 +4,7 @@ import com.mitchellbosecke.benchmark.Manual.MyFormatter;
 
 public final class ManualTemplate {
 	
-	public static void render(com.mitchellbosecke.benchmark.JStachio.StocksModel data
+	public static void render(com.mitchellbosecke.benchmark.JStachioNoLambda.StocksModel data
 			, MyFormatter formatter
 			) throws java.io.IOException {
 
@@ -67,8 +67,8 @@ public final class ManualTemplate {
 
 			// start SECTION. name: items, template: templates/stocks.mustache.html
 			/* RenderingContext: class io.jstach.apt.context.DeclaredTypeRenderingContext */
-			/* TypeMirror: com.mitchellbosecke.benchmark.JStachio.StockView */
-			for (com.mitchellbosecke.benchmark.JStachio.StockView element: data.items) {
+			/* TypeMirror: com.mitchellbosecke.benchmark.JStachioNoLambda.StockView */
+			for (com.mitchellbosecke.benchmark.JStachioNoLambda.StockView element: data.items) {
 
 			    var value = element.value;
 			    
