@@ -55,7 +55,7 @@
 		</thead>
 		<tbody>
 			{{#items}}
-			<tr class="{{#-index}}{{#isEven}}{{#.}}even{{/.}}{{^.}}odd{{/.}}{{/isEven}}{{/-index}}">
+			<tr class="{{#-index.isEven}}{{#.}}even{{/.}}{{^.}}odd{{/.}}{{/-index.isEven}}">
 				<td>{{-index}}</td>
 				<td>
 					<a href="/stocks/{{symbol}}">{{symbol}}</a>
