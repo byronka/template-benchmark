@@ -1,0 +1,5 @@
+"Benchmark","Mode","Threads","Samples","Score","Score Error (99.9%)","Unit"
+"com.mitchellbosecke.benchmark.JStachioStringUtf8.benchmark","thrpt",16,3,1160543.202431,31079.912964,"ops/s"
+"com.mitchellbosecke.benchmark.JStachioUtf8.benchmark","thrpt",16,3,936946.365272,10675.591471,"ops/s"
+"com.mitchellbosecke.benchmark.JteUtf8.benchmark","thrpt",16,3,660857.964139,105060.014962,"ops/s"
+"com.mitchellbosecke.benchmark.RockerUtf8.benchmark","thrpt",16,3,792868.098349,25657.553017,"ops/s"
