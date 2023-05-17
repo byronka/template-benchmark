@@ -19,7 +19,7 @@ UTF-8 benchmark branch
 
 The original template-engine benchmark has some flaws:
 
-* Test data is only in latin1 UTF-8
+* Test data is only in latin1 when it really should have some extended UTF-8
 * Because of the above the output should be byte based and not string
 * HTML escaping is not turned on
 * The test was originally single threaded it is now set to 16 threads
@@ -28,29 +28,32 @@ The original template-engine benchmark has some flaws:
 Consequently threadlocal usage has been turned off, pre-encoding if available turned on 
 and HTML escaping turned on for tested frameworks.
 
-The major impetus for these changes is to more closely model real world and TechEmpowers benchmarks.
+The major impetus for these changes is to more closely model the real world and TechEmpowers benchmarks.
 
-If the test data is only in latin1 then using a `StringBuilder` (preferable one reused with threadlocals)
+If the test data is *only in latin1* then using a `StringBuilder` (preferable one reused with threadlocals)
 and then calling `String.getBytes(StandardCharsets.UTF_8)` will outperform trying to use 
 pre-encoding techniques (static parts of templates are converted into bytes in advance).
 
 Currently only JStachio, Rocker, and JTE are tested. I have done my best to configure them
-correctly. All of the tests **copy** the results of their encoded buffer to byte array regardless 
+correctly for fast UTF-8 output (e.g. use pre-encoding). All of the tests **copy** the results of their encoded buffer to a byte array regardless 
 if they have the ability to read without copying. The theory is this cost should be relatively the same
-across frameworks (with the exception of String.getBytes on ascii characters).
+across frameworks (with the exception of String.getBytes on latin1 characters). Similarly
+if all frameworks used threadlocals for pooling the results would be similar as it is fixed overhead.
 
-The complying tests are suffixed with Utf8.
+The complying tests are suffixed with `Utf8`.
 
-The JStachioStringUtf8 uses `StringBuilder.toString().getBytes(...)` as a comparison of
-leveraging pre-encoding and to show how fast it is on latin1 characters.
+**Important:** The `JStachioStringUtf8` uses `StringBuilder.toString().getBytes(...)` as a comparison of
+leveraging pre-encoding and to show how fast it is on latin1 but how slow it is on extended characters.
 
-Add non ascii test data (only 4 non ascii characters were added to the test data!):
+## Extended UTF-8 test data :
+
+Only 5 non-latin1 characters were added! (a mixture of Chinese and Japanese)
 
 `java -Dbenchmark.utf8=true -jar target/benchmarks.jar Utf8 -rff results-utf8.csv -rf csv`
 
 ![Template Comparison](results-utf8.png)
 
-Use original ascii test data but with pre-encoding setups:
+## Original latin1 test data but with pre-encoding setups:
 
 `java  -jar target/benchmarks.jar Utf8 -rff results-ascii.csv -rf csv`
 
