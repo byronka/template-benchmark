@@ -11,16 +11,18 @@ import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.annotations.Warmup;
 
 import com.mitchellbosecke.benchmark.model.Stock;
 
 @Fork(1)
 @Warmup(iterations = 1)
-@Measurement(iterations = 5)
+@Measurement(iterations = 3)
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @State(Scope.Benchmark)
+@Threads(16)
 public class BaseBenchmark {
 
     protected Map<String, Object> getContext() {

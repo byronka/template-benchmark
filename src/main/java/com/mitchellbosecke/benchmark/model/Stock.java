@@ -84,6 +84,13 @@ public class Stock {
         items.add(new Stock("Sun Microsystems", "Sun Microsystems Inc.", "http://www.sun.com", "SUNW", 6.33, -0.01,
                 -0.16));
         items.add(new Stock("Yahoo", "Yahoo! Inc.", "http://www.yahoo.com", "YHOO", 28.04, -0.17, -0.6));
+        if (Boolean.getBoolean("benchmark.utf8")) {
+            // we need some non ascii/latin 1 characters
+            items.add(new Stock("トヨタ", "Toyota", "http://www.toyota.com", "TM", 141.40, -0.17, -0.6));
+            items.add(new Stock("腾讯", "Tencent", "https://www.tencent.com/en-us/", "TCEHY", 44.17, -0.17, -0.6));
+        }
+
+
         return items;
     }
 

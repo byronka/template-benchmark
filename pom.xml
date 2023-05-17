@@ -25,7 +25,7 @@
 		<rocker.version>1.3.0</rocker.version>
 		<jte.version>2.1.2</jte.version>
 		<qute.version>2.10.0.Final</qute.version>
-		<jstachio.version>1.0.0-SNAPSHOT</jstachio.version>
+		<jstachio.version>0.17.0</jstachio.version>
 	</properties>
 
 	<licenses>
@@ -79,6 +79,7 @@
 					<sourceDirectory>src/main/resources/templates</sourceDirectory>
 					<targetDirectory>jte-classes</targetDirectory>
 					<contentType>Plain</contentType>
+					<binaryStaticContent>true</binaryStaticContent>
 				</configuration>
 				<executions>
 					<execution>
