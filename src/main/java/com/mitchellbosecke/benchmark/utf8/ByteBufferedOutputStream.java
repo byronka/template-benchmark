@@ -3,7 +3,7 @@
  * Apache License Version 2.0 https://jooby.io/LICENSE.txt
  * Copyright 2014 Edgar Espina
  */
-package com.mitchellbosecke.benchmark;
+package com.mitchellbosecke.benchmark.utf8;
 
 import java.io.IOException;
 import java.io.OutputStream;

@@ -1,4 +1,4 @@
-package com.mitchellbosecke.benchmark;
+package com.mitchellbosecke.benchmark.utf8;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,7 +7,9 @@ import java.util.function.Supplier;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
 
+import com.mitchellbosecke.benchmark.BaseBenchmark;
 import com.mitchellbosecke.benchmark.JStachio.StocksModel;
+import com.mitchellbosecke.benchmark.JStachioStocksTemplate;
 import com.mitchellbosecke.benchmark.model.Stock;
 
 import io.jstach.jstachio.escapers.Html;
@@ -15,9 +17,6 @@ import io.jstach.jstachio.formatters.DefaultFormatter;
 
 public class JStachioUtf8 extends BaseBenchmark {
 
-    // Let us cheat like rocker and jte
-    //private static final ThreadLocal<ByteBufferedOutputStream> buffer = ThreadLocal.withInitial(() -> new ByteBufferedOutputStream(1024 * 8));
-    
     private static final Supplier<ByteBufferedOutputStream> buffer = () -> new ByteBufferedOutputStream(1024 * 8);
 
     private List<Stock> items;
@@ -28,7 +27,7 @@ public class JStachioUtf8 extends BaseBenchmark {
     public void setup() {
         items = Stock.dummyItems();
         model = new StocksModel(items);
-        template = new JStachioStocksTemplate(DefaultFormatter.provider(), Html.provider());
+        template = new JStachioStocksTemplate(DefaultFormatter.of(), Html.of());
     }
 
     @Benchmark
@@ -36,7 +35,7 @@ public class JStachioUtf8 extends BaseBenchmark {
         ByteBufferedOutputStream sb = buffer.get();
         sb.reset();
         template.write(model, sb);
-       return sb.toByteArray();
+        return sb.toByteArray();
     }
 
 }

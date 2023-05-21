@@ -1,4 +1,4 @@
-package com.mitchellbosecke.benchmark;
+package com.mitchellbosecke.benchmark.utf8;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

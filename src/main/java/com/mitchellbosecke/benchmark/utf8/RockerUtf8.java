@@ -1,4 +1,4 @@
-package com.mitchellbosecke.benchmark;
+package com.mitchellbosecke.benchmark.utf8;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,6 +8,7 @@ import org.openjdk.jmh.annotations.Setup;
 
 import com.fizzed.rocker.RockerOutputFactory;
 import com.fizzed.rocker.runtime.ArrayOfByteArraysOutput;
+import com.mitchellbosecke.benchmark.BaseBenchmark;
 import com.mitchellbosecke.benchmark.model.Stock;
 
 import freemarker.template.TemplateException;

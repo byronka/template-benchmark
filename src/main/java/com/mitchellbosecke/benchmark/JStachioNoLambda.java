@@ -3,7 +3,6 @@ package com.mitchellbosecke.benchmark;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
 
 import com.mitchellbosecke.benchmark.model.Stock;
@@ -34,7 +33,7 @@ public class JStachioNoLambda extends BaseBenchmark {
         template = JStachioNoLambdaStocksTemplate.of();
     }
 
-    @Benchmark
+    //@Benchmark
     public String benchmark() {
         StringBuilder sb = buffer.get();
         sb.setLength(0);
