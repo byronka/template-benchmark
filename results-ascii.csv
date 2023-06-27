@@ -1,5 +1,11 @@
-"Benchmark","Mode","Threads","Samples","Score","Score Error (99.9%)","Unit"
-"com.mitchellbosecke.benchmark.utf8.JStachioUtf8.benchmark","thrpt",16,3,139441.334242,8108.817714,"ops/s"
-"com.mitchellbosecke.benchmark.utf8.JteUtf8.benchmark","thrpt",16,3,124622.407892,4276.307165,"ops/s"
-"com.mitchellbosecke.benchmark.utf8.RockerUtf8.benchmark","thrpt",16,3,119376.524960,15307.128359,"ops/s"
-"com.mitchellbosecke.benchmark.utf8.StringGetBytesUtf8.benchmark","thrpt",16,3,108153.807001,231996.485239,"ops/s"
+"Benchmark","Mode","Threads","Samples","Score","Score Error (99.9%)","Unit","Param: output"
+"com.mitchellbosecke.benchmark.utf8.JStachioUtf8.benchmark","thrpt",16,3,704391.619738,41468.979606,"ops/s",CHUNK
+"com.mitchellbosecke.benchmark.utf8.JStachioUtf8.benchmark","thrpt",16,3,843632.514345,55379.934502,"ops/s",ARRAY
+"com.mitchellbosecke.benchmark.utf8.JStachioUtf8.benchmark","thrpt",16,3,718444.068565,40697.874880,"ops/s",DEQUE
+"com.mitchellbosecke.benchmark.utf8.JteUtf8.benchmark","thrpt",16,3,687615.810629,96446.494930,"ops/s",CHUNK
+"com.mitchellbosecke.benchmark.utf8.JteUtf8.benchmark","thrpt",16,3,792229.126754,4466.829583,"ops/s",ARRAY
+"com.mitchellbosecke.benchmark.utf8.JteUtf8.benchmark","thrpt",16,3,682816.954691,21193.581798,"ops/s",DEQUE
+"com.mitchellbosecke.benchmark.utf8.RockerUtf8.benchmark","thrpt",16,3,623658.353550,26782.403027,"ops/s",CHUNK
+"com.mitchellbosecke.benchmark.utf8.RockerUtf8.benchmark","thrpt",16,3,766132.399945,28149.488697,"ops/s",ARRAY
+"com.mitchellbosecke.benchmark.utf8.RockerUtf8.benchmark","thrpt",16,3,644516.284273,83742.570538,"ops/s",DEQUE
+"com.mitchellbosecke.benchmark.utf8.StringGetBytesUtf8.benchmark","thrpt",16,3,1034450.738631,36555.415939,"ops/s",

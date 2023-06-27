@@ -1,0 +1,33 @@
+name: Build with Maven
+
+on:
+  push:
+    branches: [ utf8 ]
+  pull_request:
+    branches: [ utf8 ]
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+      - name: Install gnuplot
+        run: sudo apt-get install -y -qq gnuplot
+      - name: Build and Test with Maven
+        run: mvn -B -ntp clean package
+      - name: Run Benchmark
+        run: ./utf8.sh
+      - name: Upload Benchmark images
+        uses: actions/upload-artifact@v3
+        with:
+          name: benchmark-results
+          path: '*.png'

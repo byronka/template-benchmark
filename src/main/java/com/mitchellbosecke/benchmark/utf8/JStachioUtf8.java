@@ -2,26 +2,31 @@ package com.mitchellbosecke.benchmark.utf8;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.function.Supplier;
 
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Setup;
 
 import com.mitchellbosecke.benchmark.BaseBenchmark;
 import com.mitchellbosecke.benchmark.JStachio.StocksModel;
 import com.mitchellbosecke.benchmark.JStachioStocksTemplate;
 import com.mitchellbosecke.benchmark.model.Stock;
+import com.mitchellbosecke.benchmark.output.JStachioAdapter;
+import com.mitchellbosecke.benchmark.output.OutputKind;
 
 import io.jstach.jstachio.escapers.Html;
 import io.jstach.jstachio.formatters.DefaultFormatter;
 
 public class JStachioUtf8 extends BaseBenchmark {
 
-    private static final Supplier<ByteBufferedOutputStream> buffer = () -> new ByteBufferedOutputStream(1024 * 8);
+    //private static final Supplier<ByteBufferedOutputStream> buffer = () -> new ByteBufferedOutputStream(1024 * 8);
 
     private List<Stock> items;
     private StocksModel model;
     private JStachioStocksTemplate template;
+    
+    @Param
+    public OutputKind output;
     
     @Setup
     public void setup() {
@@ -32,10 +37,11 @@ public class JStachioUtf8 extends BaseBenchmark {
 
     @Benchmark
     public byte[] benchmark() throws IOException {
-        ByteBufferedOutputStream sb = buffer.get();
-        sb.reset();
-        template.write(model, sb);
-        return sb.toByteArray();
+        try (var out = output.create()) {
+            JStachioAdapter adapter = new JStachioAdapter(output.create());
+            template.write(model, adapter);
+            return adapter.getOutput().toByteArray();
+        }
     }
 
 }

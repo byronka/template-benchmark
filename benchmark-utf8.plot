@@ -26,5 +26,5 @@ set style line 2 lc rgb '#808080' lt 1
 set border 3 back ls 2
 set tics nomirror
 
-plot 'results-utf8.csv' every ::1 using 0:5:xticlabels(substr(stringcolumn(1), 31, strlen(stringcolumn(1)) - 14)) with boxes ls 1,\
+plot 'results-utf8.csv' every ::1 using 0:5:xticlabels(sprintf("%s-%s", substr(stringcolumn(1), 31, strlen(stringcolumn(1)) - 14), stringcolumn(8))) with boxes ls 1,\
     'results-utf8.csv' every ::1 using 0:($5 + 1500):(sprintf("%d",$5)) with labels

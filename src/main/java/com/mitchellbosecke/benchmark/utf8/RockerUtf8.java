@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.util.List;
 
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Setup;
 
-import com.fizzed.rocker.RockerOutputFactory;
-import com.fizzed.rocker.runtime.ArrayOfByteArraysOutput;
 import com.mitchellbosecke.benchmark.BaseBenchmark;
 import com.mitchellbosecke.benchmark.model.Stock;
+import com.mitchellbosecke.benchmark.output.OutputKind;
+import com.mitchellbosecke.benchmark.output.RockerAdapter;
 
 import freemarker.template.TemplateException;
 
@@ -23,21 +24,21 @@ import freemarker.template.TemplateException;
 public class RockerUtf8 extends BaseBenchmark {
 
     private List<Stock> items;
-    private RockerOutputFactory<ArrayOfByteArraysOutput> factory;
+    @Param
+    public OutputKind output;
 
     @Setup
     public void setup() throws IOException {
         // no config needed, replicate stocks from context
         this.items = Stock.dummyItems();
-        factory = ArrayOfByteArraysOutput.FACTORY;
     }
 
     @Benchmark
     public byte[] benchmark() throws TemplateException, IOException {
-        return templates.stocks
-                .template(this.items)
-                .render(factory)
-                .toByteArray();
+        try (var out = output.create()) {
+            var adapter = new RockerAdapter(out);
+            return templates.stocks.template(this.items).render(adapter).getOutput().toByteArray();
+        }
     }
 
 }
