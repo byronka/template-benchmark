@@ -8,6 +8,7 @@ import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Setup;
 
 import com.mitchellbosecke.benchmark.BaseBenchmark;
+import com.mitchellbosecke.benchmark.JStachio;
 import com.mitchellbosecke.benchmark.JStachio.StocksModel;
 import com.mitchellbosecke.benchmark.JStachioStocksTemplate;
 import com.mitchellbosecke.benchmark.model.Stock;
@@ -39,7 +40,8 @@ public class JStachioUtf8 extends BaseBenchmark {
     public byte[] benchmark() throws IOException {
         try (var out = output.create()) {
             JStachioAdapter adapter = new JStachioAdapter(output.create());
-            template.write(model, adapter);
+            //template.write(model, adapter);
+            JStachio.execute(adapter, model);
             return adapter.getOutput().toByteArray();
         }
     }

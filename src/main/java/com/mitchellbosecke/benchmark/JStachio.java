@@ -10,7 +10,13 @@ import com.mitchellbosecke.benchmark.model.Stock;
 import io.jstach.jstache.JStache;
 import io.jstach.jstache.JStacheConfig;
 import io.jstach.jstache.JStacheLambda;
+import io.jstach.jstachio.Appender;
+import io.jstach.jstachio.Escaper;
+import io.jstach.jstachio.Formatter;
+import io.jstach.jstachio.Output.EncodedOutput;
+import io.jstach.jstachio.escapers.Html;
 import io.jstach.jstachio.escapers.PlainText;
+import io.jstach.jstachio.formatters.DefaultFormatter;
 
 public class JStachio extends BaseBenchmark {
 
@@ -56,6 +62,13 @@ public class JStachio extends BaseBenchmark {
             return index % 2 == 0;
         }
 
+    }
+    
+    private static Escaper escaper = Html.of();
+    private static Formatter formatter = DefaultFormatter.of();
+    
+    public static void execute(EncodedOutput<? extends RuntimeException> o, StocksModel model) {
+        JStachioStocksTemplate.encode(model, o, formatter, escaper, Appender.defaultAppender());
     }
 
 }
