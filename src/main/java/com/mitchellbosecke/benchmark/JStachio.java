@@ -17,6 +17,7 @@ import io.jstach.jstachio.Output.EncodedOutput;
 import io.jstach.jstachio.escapers.Html;
 import io.jstach.jstachio.escapers.PlainText;
 import io.jstach.jstachio.formatters.DefaultFormatter;
+import io.jstach.jstachio.formatters.SpecFormatter;
 
 public class JStachio extends BaseBenchmark {
 
@@ -65,7 +66,7 @@ public class JStachio extends BaseBenchmark {
     }
     
     private static Escaper escaper = Html.of();
-    private static Formatter formatter = DefaultFormatter.of();
+    private static Formatter formatter = SpecFormatter.provider();
     
     public static void execute(EncodedOutput<? extends RuntimeException> o, StocksModel model) {
         JStachioStocksTemplate.encode(model, o, formatter, escaper, Appender.defaultAppender());

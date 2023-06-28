@@ -16,7 +16,7 @@ import com.mitchellbosecke.benchmark.output.JStachioAdapter;
 import com.mitchellbosecke.benchmark.output.OutputKind;
 
 import io.jstach.jstachio.escapers.Html;
-import io.jstach.jstachio.formatters.DefaultFormatter;
+import io.jstach.jstachio.formatters.SpecFormatter;
 
 public class JStachioUtf8 extends BaseBenchmark {
 
@@ -33,7 +33,7 @@ public class JStachioUtf8 extends BaseBenchmark {
     public void setup() {
         items = Stock.dummyItems();
         model = new StocksModel(items);
-        template = new JStachioStocksTemplate(DefaultFormatter.of(), Html.of());
+        template = new JStachioStocksTemplate(SpecFormatter.provider(), Html.of());
     }
 
     @Benchmark
