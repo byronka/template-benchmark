@@ -23,8 +23,12 @@ jobs:
           java-version: ${{ matrix.version }}
           distribution: 'temurin'
           cache: 'maven'
-      - name: Install gnuplot
+      - name: Install gnuplot (ubuntu)
+        if: matrix.os == 'ubuntu-latest'
         run: sudo apt-get install -y -qq gnuplot
+      - name: Install gnuplot (macos)
+        if: matrix.os == 'macos-latest'
+        run: brew install gnuplot
       - name: Build and Test with Maven
         run: mvn -B -ntp clean package
       - name: Run Benchmark
