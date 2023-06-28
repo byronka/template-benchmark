@@ -49,6 +49,21 @@ The complying tests are suffixed with `Utf8`.
 leveraging pre-encoding and to show how fast it is on latin1 but how slow it is on extended characters.
 However it does not use threadlocals like the original test does.
 
+## Output Buffering Algorithms
+
+When a template engine executes it needs an output like object. Usually this is an `OutputStream`.
+In the case of high performance web applications that generate HTML the entire HTML output is usually buffered.
+The reason is that `content-length` header needs to be set and is a requirement for the TechEmpower benchmarks.
+
+* ARRAY - This is what JStachio uses and recommends. This is essentially `ByteArrayOutputStream` where an array grows.
+  The pre-encoded byte arrays are copied to a single array that will grow when needed.
+  It is notable in that it is the only one that can reuse allocation via threadlocal but this test does not do that.
+* CHUNK - JTE and Rocker use this algorithm for UTF-8 pre-encoding. The idea is to keep a list of byte arrays.
+* DEQUE - Basically CHUNK but uses a Deque instead of an ArrayList. This comes from Springs `FastByteArrayOutputStream`.
+
+To make things fair we test all three of the algorithms (deque is currently off)
+against each templating engine instead of letting the template engine choose.
+
 ## Extended UTF-8 test data :
 
 *Only 5* non-latin1 characters were added! (a mixture of Chinese and Japanese)
@@ -60,11 +75,16 @@ However it does not use threadlocals like the original test does.
 ## Original latin1 test data but with pre-encoding setups:
 
 Only latin1 characters are used in test data just like original benchmark 
-(actually the data is closer to ASCII as it is all below 255).
+(actually the data is closer to ASCII as it is all below 255). 
 
 `java  -jar target/benchmarks.jar Utf8 -rff results-ascii.csv -rf csv`
 
 ![Template Comparison](results-ascii.png)
+
+`StringBuilder.toString().getBytes(...)` is vastly superior to pre-encoding if
+all the characters are latin1. This is something you can leverage if you are absolutely
+certain all the characters are latin1 or even better ASCII. However a single emoji based
+on the previous results will make `toString().getBytes(...)` slow.
 
 
 ## Original String output test

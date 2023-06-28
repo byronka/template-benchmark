@@ -1,7 +1,13 @@
 #!/bin/bash
+#CMD ["java", "-server", "-Xms4g", "-Xmx4g", "-XX:-UseBiasedLocking", "-XX:+UseStringDeduplication", "-XX:+UseNUMA", "-XX:+UseParallelGC", "-jar", "app.jar"] 
 
-java -Dbenchmark.utf8=true -jar target/benchmarks.jar Utf8 -rff results-utf8.csv -rf csv
+JVM_ARGS="-server -Xms4g -Xmx4g -XX:+UseStringDeduplication -XX:+UseNUMA -XX:+UseParallelGC"
+java ${JVM_ARGS} \
+  -Dbenchmark.utf8=true -jar target/benchmarks.jar Utf8 -rff results-utf8.csv -rf csv
+
 gnuplot benchmark-utf8.plot
 
-java -jar target/benchmarks.jar Utf8 -rff results-ascii.csv -rf csv
+java ${JVM_ARGS} \
+  -jar target/benchmarks.jar Utf8 -rff results-ascii.csv -rf csv
+
 gnuplot benchmark-ascii.plot

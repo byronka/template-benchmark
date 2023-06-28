@@ -9,6 +9,8 @@ import com.mitchellbosecke.benchmark.model.Stock;
 
 import io.jstach.jstache.JStache;
 import io.jstach.jstache.JStacheConfig;
+import io.jstach.jstache.JStacheFlags;
+import io.jstach.jstache.JStacheFlags.Flag;
 import io.jstach.jstache.JStacheLambda;
 import io.jstach.jstachio.Appender;
 import io.jstach.jstachio.Escaper;
@@ -45,6 +47,7 @@ public class JStachio extends BaseBenchmark {
     @JStache(path = "templates/stocks.jstachio.html", 
             name="JStachioStocksTemplate")
     @JStacheConfig(contentType=PlainText.class)
+    @JStacheFlags(flags = Flag.NO_NULL_CHECKING)
     public static class StocksModel {
 
         public final List<Stock> items;
