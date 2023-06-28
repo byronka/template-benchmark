@@ -36,5 +36,7 @@ jobs:
       - name: Upload Benchmark images
         uses: actions/upload-artifact@v3
         with:
-          name: benchmark-results
-          path: '*.png'
+          name: benchmark-results-${{ matrix.os }}-${{ matrix.version }}.zip
+          path: |
+            '*.png'
+            '*.csv'
