@@ -38,5 +38,5 @@ jobs:
         with:
           name: benchmark-results-${{ matrix.os }}-${{ matrix.version }}.zip
           path: |
-            '*.png'
-            '*.csv'
+            *.png
+            *.csv
