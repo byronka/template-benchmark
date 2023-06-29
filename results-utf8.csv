@@ -1,8 +1,8 @@
 "Benchmark","Mode","Threads","Samples","Score","Score Error (99.9%)","Unit","Param: output"
-"com.mitchellbosecke.benchmark.utf8.JStachioUtf8.benchmark","thrpt",16,3,732348.853044,81908.545018,"ops/s",ARRAY
-"com.mitchellbosecke.benchmark.utf8.JStachioUtf8.benchmark","thrpt",16,3,623791.029720,22357.168417,"ops/s",CHUNK
-"com.mitchellbosecke.benchmark.utf8.JteUtf8.benchmark","thrpt",16,3,717570.464323,39423.928329,"ops/s",ARRAY
-"com.mitchellbosecke.benchmark.utf8.JteUtf8.benchmark","thrpt",16,3,605288.715485,96794.653746,"ops/s",CHUNK
-"com.mitchellbosecke.benchmark.utf8.RockerUtf8.benchmark","thrpt",16,3,710712.804326,8805.606610,"ops/s",ARRAY
-"com.mitchellbosecke.benchmark.utf8.RockerUtf8.benchmark","thrpt",16,3,653913.179077,25102.279128,"ops/s",CHUNK
-"com.mitchellbosecke.benchmark.utf8.StringGetBytesUtf8.benchmark","thrpt",16,3,592202.220976,23423.036728,"ops/s",N/A
+"com.mitchellbosecke.benchmark.utf8.JStachioUtf8.benchmark","thrpt",16,3,650111.089373,99713.887760,"ops/s",ARRAY
+"com.mitchellbosecke.benchmark.utf8.JStachioUtf8.benchmark","thrpt",16,3,518752.503964,140005.900649,"ops/s",CHUNK
+"com.mitchellbosecke.benchmark.utf8.JteUtf8.benchmark","thrpt",16,3,602851.393465,88332.229139,"ops/s",ARRAY
+"com.mitchellbosecke.benchmark.utf8.JteUtf8.benchmark","thrpt",16,3,529926.280756,12198.348170,"ops/s",CHUNK
+"com.mitchellbosecke.benchmark.utf8.RockerUtf8.benchmark","thrpt",16,3,556971.961919,243933.484236,"ops/s",ARRAY
+"com.mitchellbosecke.benchmark.utf8.RockerUtf8.benchmark","thrpt",16,3,502919.180662,15461.025839,"ops/s",CHUNK
+"com.mitchellbosecke.benchmark.utf8.StringGetBytesUtf8.benchmark","thrpt",16,3,462102.420733,22178.060834,"ops/s",N/A

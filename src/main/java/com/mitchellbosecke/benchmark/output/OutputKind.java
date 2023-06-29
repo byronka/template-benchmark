@@ -14,6 +14,20 @@ public enum OutputKind {
             return new ChunkOutput(512);
         }
     };
+//    POOL() {
+//        private final OutputPool pool = OutputPool.of(16 * 4);
+//        @Override
+//        public Utf8Output create() {
+//            return pool.acquire();
+//        }
+//    },
+//    THREAD_LOCAL() {
+//        private static final ThreadLocal<Utf8Output> threadLocal = ThreadLocal.withInitial(() -> new ByteArrayOutput());
+//        @Override
+//        public Utf8Output create() {
+//            return threadLocal.get();
+//        }
+//    };
 //    DEQUE() {
 //        @Override
 //        public Utf8Output create() {

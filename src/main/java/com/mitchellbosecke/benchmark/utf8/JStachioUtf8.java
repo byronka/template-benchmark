@@ -38,7 +38,7 @@ public class JStachioUtf8 extends BaseBenchmark {
     @Benchmark
     public byte[] benchmark() throws IOException {
         try (var out = output.create()) {
-            JStachioAdapter adapter = new JStachioAdapter(output.create());
+            JStachioAdapter adapter = new JStachioAdapter(out);
             template.write(model, adapter);
             return adapter.getOutput().toByteArray();
         }
