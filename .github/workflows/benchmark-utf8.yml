@@ -31,7 +31,7 @@ jobs:
         run: brew install gnuplot
       - name: Install gnuplot (windows)
         if: matrix.os == 'windows-latest'
-        run: choco install gnuplot
+        run: choco install gnuplot -r && refreshenv
       - name: Build and Test with Maven
         run: mvn -B -ntp clean package
       - name: Run Benchmark
