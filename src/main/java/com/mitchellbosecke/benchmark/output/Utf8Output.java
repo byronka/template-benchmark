@@ -59,8 +59,9 @@ public interface Utf8Output extends AutoCloseable {
         
         try (channel) {
 
-            // This matches the default buffer size for jetty
-            ByteBuffer buffer = ByteBuffer.allocate(1024 * 32); 
+            // ideally we would match Jetty and others default of 32K!
+            // but that causes windows to run out of heap space on github actions
+            ByteBuffer buffer = ByteBuffer.allocate(1024 * 8); 
             int bytesRead = channel.read(buffer);
             // Because the buffer is gigantic we are just going to assume it fits
             // for benchmarking purposes as it probably will in real life for 32K
