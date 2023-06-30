@@ -40,7 +40,7 @@ public class JStachioUtf8 extends BaseBenchmark {
         try (var out = output.create()) {
             JStachioAdapter adapter = new JStachioAdapter(out);
             template.write(model, adapter);
-            return adapter.getOutput().toByteArray();
+            return adapter.getOutput().output();
         }
     }
 

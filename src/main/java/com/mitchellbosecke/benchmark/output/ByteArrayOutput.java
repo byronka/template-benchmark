@@ -1,6 +1,7 @@
 package com.mitchellbosecke.benchmark.output;
 
 import java.nio.ByteBuffer;
+import java.nio.channels.ReadableByteChannel;
 import java.util.Arrays;
 
 public class ByteArrayOutput implements Utf8Output, AutoCloseable {
@@ -83,6 +84,11 @@ public class ByteArrayOutput implements Utf8Output, AutoCloseable {
      */
     public ByteBuffer toBuffer() {
         return ByteBuffer.wrap(buf, 0, count);
+    }
+    
+    @Override
+    public ReadableByteChannel asReadableByteChannel() {
+        return Utf8Output.toChannel(buf, count);
     }
 
     private void ensureCapacity(int minCapacity) {

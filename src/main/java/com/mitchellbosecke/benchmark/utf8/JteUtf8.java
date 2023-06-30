@@ -44,7 +44,7 @@ public class JteUtf8 extends BaseBenchmark {
         try(var out = output.create()) {
             JteAdapter adapter = new JteAdapter(out);
             templateEngine.render("stocks.jte", items, adapter);
-            return adapter.getOutput().toByteArray();
+            return adapter.getOutput().output();
         }
     }
 }

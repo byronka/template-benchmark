@@ -37,7 +37,7 @@ public class RockerUtf8 extends BaseBenchmark {
     public byte[] benchmark() throws TemplateException, IOException {
         try (var out = output.create()) {
             var adapter = new RockerAdapter(out);
-            return templates.stocks.template(this.items).render(adapter).getOutput().toByteArray();
+            return templates.stocks.template(this.items).render(adapter).getOutput().output();
         }
     }
 
