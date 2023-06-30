@@ -5,9 +5,9 @@ JVM_ARGS="-server -Xms2g -Xmx2g -XX:+UseStringDeduplication -XX:+UseNUMA -XX:+Us
 java ${JVM_ARGS} \
   -Dbenchmark.utf8=true -jar target/benchmarks.jar Utf8 -rff results-utf8.csv -rf csv
 
-gnuplot benchmark-utf8.plot
+./gnuplot.sh benchmark-utf8.plot
 
 java ${JVM_ARGS} \
   -jar target/benchmarks.jar Utf8 -rff results-ascii.csv -rf csv
 
-gnuplot benchmark-ascii.plot
+./gnuplot.sh benchmark-ascii.plot
