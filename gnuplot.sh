@@ -8,8 +8,8 @@ case "$(uname -sr)" in
 esac
 
 if [[ "$_WINDOWS" == "true" ]]; then
-ls /c/Program\ Files/gnuplot
-/c/Program\ Files/gnuplot/gnuplot $1
+ls /c/Program\ Files/gnuplot/bin
+/c/Program\ Files/gnuplot/bin/gnuplot $1
 elif [ -x "$(command -v gnuplot)" ]; then
 gnuplot $1
 else
