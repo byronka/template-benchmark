@@ -3,7 +3,6 @@ package com.mitchellbosecke.benchmark.output;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.ByteBuffer;
-import java.nio.channels.ClosedChannelException;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
 
@@ -52,7 +51,7 @@ public interface Utf8Output extends AutoCloseable {
          * ByteArrayInputStream is probably not fast but its builtin
          */
         //return Channels.newChannel(new ByteArrayInputStream(array, 0, length));
-        return asReadableByteChannel(ByteBuffer.wrap(array, 0, length));
+        return new ByteBufferChannel(ByteBuffer.wrap(array, 0, length));
     }
     
     public static byte[] consumeChannel(ReadableByteChannel channel) {
@@ -90,34 +89,37 @@ public interface Utf8Output extends AutoCloseable {
         }
     }
     
-    public static ReadableByteChannel asReadableByteChannel(
-            final ByteBuffer buffer) {
 
-        return new ReadableByteChannel() {
+    public class ByteBufferChannel implements ReadableByteChannel {
+        private final ByteBuffer buffer;
 
-            private boolean open = true;
+        public ByteBufferChannel(ByteBuffer buffer) {
+            this.buffer = buffer;
+        }
 
-            public int read(ByteBuffer dst) throws IOException {
-                if (open == false) {
-                    throw new ClosedChannelException();
-                }
-                
-                // This is really naive on purpose
-                int size = buffer.remaining();
+        @Override
+        public int read(ByteBuffer dst) throws IOException {
+            int remaining = buffer.remaining();
+            int bytesToRead = Math.min(remaining, dst.remaining());
+            if (bytesToRead > 0) {
+                int oldLimit = buffer.limit();
+                buffer.limit(buffer.position() + bytesToRead);
                 dst.put(buffer);
-                return size;
-
+                buffer.limit(oldLimit);
+                return bytesToRead;
             }
+            return -1;
+        }
 
-            public void close() throws IOException {
-                open = false;
-            }
+        @Override
+        public boolean isOpen() {
+            return true;
+        }
 
-            public boolean isOpen() {
-                return open;
-            }
-
-        };
+        @Override
+        public void close() throws IOException {
+            // No-op for this example
+        }
     }
     
 }
