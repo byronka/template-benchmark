@@ -25,6 +25,11 @@ public class JStachioAdapter implements EncodedOutput<RuntimeException>{
         output.write(bytes, off, len);
         
     }
+    
+    @Override
+    public void append(String s) throws RuntimeException {
+        output.write(s.getBytes(StandardCharsets.UTF_8));
+    }
 
     @Override
     public Charset charset() {
@@ -34,5 +39,10 @@ public class JStachioAdapter implements EncodedOutput<RuntimeException>{
     
     public Utf8Output getOutput() {
         return output;
+    }
+
+    @Override
+    public void append(CharSequence s) throws RuntimeException {
+        append(s.toString());
     }
 }
