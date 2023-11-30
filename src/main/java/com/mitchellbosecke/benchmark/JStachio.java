@@ -18,7 +18,6 @@ import io.jstach.jstachio.Formatter;
 import io.jstach.jstachio.Output.EncodedOutput;
 import io.jstach.jstachio.escapers.Html;
 import io.jstach.jstachio.escapers.PlainText;
-import io.jstach.jstachio.formatters.DefaultFormatter;
 import io.jstach.jstachio.formatters.SpecFormatter;
 
 public class JStachio extends BaseBenchmark {
@@ -47,7 +46,7 @@ public class JStachio extends BaseBenchmark {
     @JStache(path = "templates/stocks.jstachio.html", 
             name="JStachioStocksTemplate")
     @JStacheConfig(contentType=PlainText.class)
-    @JStacheFlags(flags = Flag.NO_NULL_CHECKING)
+    @JStacheFlags(flags = {Flag.NO_NULL_CHECKING})
     public static class StocksModel {
 
         public final List<Stock> items;
