@@ -132,3 +132,4 @@ Example Results
 ===============
 
 ![Template Comparison](results.png)
+![Template Comparison 2](template_speed_chart.jpg)
