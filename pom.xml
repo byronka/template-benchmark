@@ -143,6 +143,11 @@
 
 		<!-- template engines -->
 		<dependency>
+			<groupId>com.renomad</groupId>
+			<artifactId>minum</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+		<dependency>
 			<groupId>com.mitchellbosecke</groupId>
 			<artifactId>pebble</artifactId>
 			<version>${pebble.version}</version>
@@ -196,7 +201,7 @@
     <dependency>
       <groupId>com.samskivert</groupId>
       <artifactId>jmustache</artifactId>
-      <version>1.16-SNAPSHOT</version>
+      <version>1.15</version>
     </dependency>
     
     <dependency>

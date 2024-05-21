@@ -1,0 +1,43 @@
+diff --git a/pom.xml b/pom.xml
+index 520ab69..e4c082f 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -142,6 +142,11 @@
+ 		</dependency>
+ 
+ 		<!-- template engines -->
++		<dependency>
++			<groupId>com.renomad</groupId>
++			<artifactId>minum</artifactId>
++			<version>3.2.0</version>
++		</dependency>
+ 		<dependency>
+ 			<groupId>com.mitchellbosecke</groupId>
+ 			<artifactId>pebble</artifactId>
+@@ -196,7 +201,7 @@
+     <dependency>
+       <groupId>com.samskivert</groupId>
+       <artifactId>jmustache</artifactId>
+-      <version>1.16-SNAPSHOT</version>
++      <version>1.15</version>
+     </dependency>
+     
+     <dependency>
+diff --git a/src/test/java/com/mitchellbosecke/benchmark/ExpectedOutputTest.java b/src/test/java/com/mitchellbosecke/benchmark/ExpectedOutputTest.java
+index d02bd81..ef86d97 100644
+--- a/src/test/java/com/mitchellbosecke/benchmark/ExpectedOutputTest.java
++++ b/src/test/java/com/mitchellbosecke/benchmark/ExpectedOutputTest.java
+@@ -116,6 +116,13 @@ public class ExpectedOutputTest {
+         assertOutput(qute.benchmark());
+     }
+ 
++    @Test
++    public void testMinumOutput() throws Exception {
++        Minum minum = new Minum();
++        minum.setup();
++        assertOutput(minum.benchmark());
++    }
++
+     private void assertOutput(final String output) throws IOException {
+         assertEquals(readExpectedOutputResource(), output.replaceAll("\\s", ""));
+     }

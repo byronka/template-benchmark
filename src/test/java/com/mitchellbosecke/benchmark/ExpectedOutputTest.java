@@ -116,6 +116,13 @@ public class ExpectedOutputTest {
         assertOutput(qute.benchmark());
     }
 
+    @Test
+    public void testMinumOutput() throws Exception {
+        Minum minum = new Minum();
+        minum.setup();
+        assertOutput(minum.benchmark());
+    }
+
     private void assertOutput(final String output) throws IOException {
         assertEquals(readExpectedOutputResource(), output.replaceAll("\\s", ""));
     }

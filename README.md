@@ -12,6 +12,7 @@ JMH benchmark for popular Java template engines:
 * [Thymeleaf](http://www.thymeleaf.org/)
 * [Trimou](http://trimou.org/)
 * [Velocity](http://velocity.apache.org/)
+* [Minum](https://github.com/byronka/minum)
 
 
 UTF-8 benchmark branch
