@@ -9,6 +9,7 @@ import org.openjdk.jmh.annotations.Setup;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public class Minum extends BaseBenchmark {
     private TemplateProcessor stockPrices;
 
     @Setup
-    public void setup() throws IOException {
+    public void setup() throws IOException, InterruptedException {
         items = Stock.dummyItems();
         String innerTemplate = Files.readString(Path.of("src/main/resources/templates/individual_stock.html"));
         individualStockProcessor = TemplateProcessor.buildProcessor(innerTemplate);
@@ -28,7 +29,8 @@ public class Minum extends BaseBenchmark {
 
     @Benchmark
     public String benchmark() {
-        StringBuilder sb = new StringBuilder();
+
+        List<String> parts = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             Stock stock = items.get(i);
             String renderedIndividualStock = individualStockProcessor.renderTemplate(Map.of(
@@ -43,10 +45,10 @@ public class Minum extends BaseBenchmark {
                     "change", String.valueOf(stock.getChange()),
                     "ratio", String.valueOf(stock.getRatio())
             ));
-            sb.append(renderedIndividualStock);
-            if (i < items.size() - 1) sb.append('\n');
+            parts.add(renderedIndividualStock);
+            if (i < items.size() - 1) parts.add("\n");
         }
-        return stockPrices.renderTemplate(Map.of("individual_stocks", sb.toString()));
+        return stockPrices.renderTemplate(Map.of("individual_stocks", String.join("", parts)));
     }
 
 
