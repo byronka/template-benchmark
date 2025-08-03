@@ -96,6 +96,10 @@ output **but 16 threads**
 
 ![Template Comparison](results.png)
 
+Performance versus size of the code base is presented below.  The spreadsheet
+used is `template_speed_chart.ods`.
+
+![Source code size comparison](template_perf.jpg)
 
 **The original benchmark instructions are below**
 
