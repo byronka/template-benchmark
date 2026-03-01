@@ -17,16 +17,16 @@ import java.util.Map;
 public class Minum extends BaseBenchmark {
     private List<Stock> items;
     private TemplateProcessor stockPrices;
+    private TemplateProcessor individualStockProcessor;
     List<Map<String,String>> stockPricesList;
 
     @Setup
     public void setup() throws IOException, InterruptedException {
         items = Stock.dummyItems();
         String innerTemplate = Files.readString(Path.of("src/main/resources/templates/individual_stock.html"));
-        var individualStockProcessor = TemplateProcessor.buildProcessor(innerTemplate);
+        individualStockProcessor = TemplateProcessor.buildProcessor(innerTemplate);
         String outerTemplate = Files.readString(Path.of("src/main/resources/templates/stock_prices.html"));
         stockPrices = TemplateProcessor.buildProcessor(outerTemplate);
-        stockPrices.registerInnerTemplate("individual_stocks", individualStockProcessor);
 
         // create reusable maps
         stockPricesList = new ArrayList<>();
@@ -52,10 +52,8 @@ public class Minum extends BaseBenchmark {
 
     @Benchmark
     public String benchmark() {
-        stockPrices
-                .getInnerTemplate("individual_stocks")
-                .registerData(stockPricesList);
-        return stockPrices.renderTemplate(false);
+        String innerData = individualStockProcessor.renderTemplate(stockPricesList);
+        return stockPrices.renderTemplate(Map.of("individual_stocks", innerData));
     }
 
 }
